@@ -102,6 +102,8 @@ namespace DiscoursPublique
                 }
             }
 
+            MessageBox.Show("Les dates des discours ont été mise à jour");
+
         }
 
         private void button2_Click(object sender, RibbonControlEventArgs e)
@@ -157,9 +159,8 @@ namespace DiscoursPublique
                             {
                                                            
                                 DateTime dateDiscours = DateTime.Parse(dates[i], new CultureInfo("fr-FR")) ;
-                                MessageBox.Show(listeorateurs[i] + " " + orateur.Name.ElementAt(j) );
-
-                                if (orateur.datesBosquejo.ElementAt(j) == "")
+                               
+                                if (orateur.datesBosquejo[j] == "")
                                 {
 
                                     orateur.datesBosquejo[j] = "01/01/2014";
@@ -197,6 +198,8 @@ namespace DiscoursPublique
                     }
                 }
             }
+
+            MessageBox.Show("Les dates pour les orateurs à été mis à jour");
         }
     }
 }
