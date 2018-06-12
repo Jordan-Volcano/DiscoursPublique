@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<customUI onLoad="Ribbon_Load" xmlns="http://schemas.microsoft.com/office/2006/01/customui">
+    <ribbon>
+        <tabs>
+            <tab idMso="TabAddIns" label="DP">
+                <group id="group1" label="Dates">
+                    <button id="button1" onAction="button1_Click" label="Discours" size="large" />
+                    <button id="button2" onAction="button2_Click" label="Orateurs" size="large" />
+                    <dialogBoxLauncher>
+                        <button id="group1__btn" />
+                    </dialogBoxLauncher>
+                </group>
+            </tab>
+        </tabs>
+    </ribbon>
+</customUI>
