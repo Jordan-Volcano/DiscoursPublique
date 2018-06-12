@@ -103,5 +103,94 @@ namespace DiscoursPublique
             }
 
         }
+
+        private void button2_Click(object sender, RibbonControlEventArgs e)
+        {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("fr-FR");
+
+            var bosquejos = new Bosquejos();
+            Workbook wb = Globals.ThisAddIn.GetActiveWorkbook();
+
+            foreach (Excel.Worksheet sheet in wb.Worksheets)
+            {
+                if (sheet.Name == "Bosquejos") {
+                    
+                    Range rngOrateur = sheet.get_Range("D5", "P5");
+                    Range rngDateOrateurs = sheet.get_Range("D4", "P4");
+
+                    System.Array valuesBosquejos= (System.Array)rngOrateur.Cells.Value;
+                    System.Array valuesDateBosquejos = (System.Array)rngDateOrateurs.Cells.Value;
+
+                    bosquejos = new Bosquejos(
+                                                    Globals.ThisAddIn.ConvertToStringArray2(valuesBosquejos),
+                                                    Globals.ThisAddIn.ConvertToStringArray2(valuesDateBosquejos)
+                                                  );
+
+                    // MessageBox.Show( bosquejos.numeros.ElementAt(i) ); // == bosquejo n° i
+                    // MessageBox.Show( bosquejos.datesBosquejo.ElementAt(i) ); // date bosque n° i
+                }
+
+                else if(sheet.Name == "Hermanos") {
+                   
+                }
+                else { 
+                    Range rngorateurs = sheet.get_Range("B13", "B36");
+                    Range rngdates = sheet.get_Range("A13", "A36");
+
+                    System.Array valuesOrateurs = (System.Array)rngorateurs.Cells.Value2;
+                    System.Array valuesDates = (System.Array)rngdates.Cells.Value;
+
+                    string[] orateurs = Globals.ThisAddIn.ConvertToStringArray(valuesOrateurs);
+                    string[] dates = Globals.ThisAddIn.ConvertToStringArray(valuesDates);
+
+                    for (int i = 1; i < orateurs.Length; i++)
+                    {
+
+                        dates[i] = "01/01/2015";
+
+                        for (int j = 1; j < bosquejos.numeros.Length; j++) { 
+
+                            if (orateurs[i] == bosquejos.numeros.ElementAt(j) )
+                            {
+                                                           
+                                DateTime dateDiscours = DateTime.Parse(dates[i], new CultureInfo("fr-FR")) ;
+
+                                if (bosquejos.datesBosquejo.ElementAt(j) == "")
+                                {
+
+                                    bosquejos.datesBosquejo[j] = "01/01/2015";
+                                }
+
+                                //TODO : Prendre en charge les valeur où il n'y a pas de date
+
+                                DateTime dateBosquejo = DateTime.Parse(bosquejos.datesBosquejo.ElementAt(j), new CultureInfo("fr-FR"));
+
+
+                                if ( dateDiscours > dateBosquejo)
+                                {
+                                    MessageBox.Show("discours programmé date superieur a celle inscrite");
+                                    string[] lettre = {"D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P"};
+                                   
+
+                                    Worksheet sheet2 = wb.Sheets["Bosquejos"];
+
+                                    Range newrange = sheet2.get_Range(lettre[j] + 4);
+                                    
+                                    newrange.Cells.Value = dateDiscours.ToShortDateString();
+
+                                }
+
+
+                                
+                                
+
+                            }
+
+                        }
+
+                    }
+                }
+            }
+        }
     }
 }

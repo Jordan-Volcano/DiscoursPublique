@@ -67,6 +67,24 @@ namespace DiscoursPublique
 
             return theArray;
         }
-       
+
+        public string[] ConvertToStringArray2(System.Array values)
+        {
+
+            // create a new string array
+            string[] theArray = new string[values.Length];
+
+            // loop through the 2-D System.Array and populate the 1-D String Array
+            for (int i = 1; i <= values.Length; i++)
+            {
+                if (values.GetValue(1, i) == null)
+                    theArray[i - 1] = "";
+                else
+                    theArray[i - 1] = (string)values.GetValue(1, i).ToString();
+            }
+
+            return theArray;
+        }
+
     }
 }
