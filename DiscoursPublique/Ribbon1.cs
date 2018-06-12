@@ -108,21 +108,21 @@ namespace DiscoursPublique
         {
             Thread.CurrentThread.CurrentCulture = new CultureInfo("fr-FR");
 
-            var bosquejos = new Bosquejos();
+            var orateur = new Orateur();
             Workbook wb = Globals.ThisAddIn.GetActiveWorkbook();
 
             foreach (Excel.Worksheet sheet in wb.Worksheets)
             {
                 if (sheet.Name == "Bosquejos") {
                     
-                    Range rngOrateur = sheet.get_Range("D5", "P5");
-                    Range rngDateOrateurs = sheet.get_Range("D4", "P4");
+                    Range rngOrateur = sheet.get_Range("C5", "P5");
+                    Range rngDateOrateurs = sheet.get_Range("C4", "P4");
 
-                    System.Array valuesBosquejos= (System.Array)rngOrateur.Cells.Value;
+                    System.Array valuesOrateur= (System.Array)rngOrateur.Cells.Value;
                     System.Array valuesDateBosquejos = (System.Array)rngDateOrateurs.Cells.Value;
 
-                    bosquejos = new Bosquejos(
-                                                    Globals.ThisAddIn.ConvertToStringArray2(valuesBosquejos),
+                    orateur = new Orateur(
+                                                    Globals.ThisAddIn.ConvertToStringArray2(valuesOrateur),
                                                     Globals.ThisAddIn.ConvertToStringArray2(valuesDateBosquejos)
                                                   );
 
@@ -140,36 +140,42 @@ namespace DiscoursPublique
                     System.Array valuesOrateurs = (System.Array)rngorateurs.Cells.Value2;
                     System.Array valuesDates = (System.Array)rngdates.Cells.Value;
 
-                    string[] orateurs = Globals.ThisAddIn.ConvertToStringArray(valuesOrateurs);
+                    string[] listeorateurs = Globals.ThisAddIn.ConvertToStringArray(valuesOrateurs);
                     string[] dates = Globals.ThisAddIn.ConvertToStringArray(valuesDates);
 
-                    for (int i = 1; i < orateurs.Length; i++)
+                    for (int i = 1; i < listeorateurs.Length; i++)
                     {
 
-                        dates[i] = "01/01/2015";
+                        if (dates[i] == "")
+                        {
+                            dates[i] = "01/01/2015";
+                        }
 
-                        for (int j = 1; j < bosquejos.numeros.Length; j++) { 
+                        for (int j = 1; j < orateur.Name.Length; j++) { 
 
-                            if (orateurs[i] == bosquejos.numeros.ElementAt(j) )
+                            if (listeorateurs[i] == orateur.Name.ElementAt(j) && listeorateurs[i] != "" )
                             {
                                                            
                                 DateTime dateDiscours = DateTime.Parse(dates[i], new CultureInfo("fr-FR")) ;
+                                MessageBox.Show(listeorateurs[i] + " " + orateur.Name.ElementAt(j) );
 
-                                if (bosquejos.datesBosquejo.ElementAt(j) == "")
+                                if (orateur.datesBosquejo.ElementAt(j) == "")
                                 {
 
-                                    bosquejos.datesBosquejo[j] = "01/01/2015";
+                                    orateur.datesBosquejo[j] = "01/01/2014";
+
+                                   
                                 }
 
                                 //TODO : Prendre en charge les valeur où il n'y a pas de date
+                                
+                                DateTime dateBosquejo = DateTime.Parse(orateur.datesBosquejo.ElementAt(j), new CultureInfo("fr-FR"));
 
-                                DateTime dateBosquejo = DateTime.Parse(bosquejos.datesBosquejo.ElementAt(j), new CultureInfo("fr-FR"));
-
-
+                               
                                 if ( dateDiscours > dateBosquejo)
                                 {
-                                    MessageBox.Show("discours programmé date superieur a celle inscrite");
-                                    string[] lettre = {"D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P"};
+                                    
+                                    string[] lettre = {"C","D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P"};
                                    
 
                                     Worksheet sheet2 = wb.Sheets["Bosquejos"];

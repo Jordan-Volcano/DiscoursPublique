@@ -29,4 +29,28 @@ namespace DiscoursPublique
 
       
     }
+
+
+    public class Orateur
+    {
+        public string[] Name;
+        public string[] datesBosquejo;
+
+
+        public Orateur()
+        {
+
+
+        }
+
+
+        public Orateur( string[] nom, string[] dates)
+        {
+            Name = nom;
+            datesBosquejo = dates;
+
+        }
+
+
+    }
 }
