@@ -42,8 +42,8 @@ namespace DiscoursPublique
                     // MessageBox.Show( bosquejos.datesBosquejo.ElementAt(i) ); // date bosque n° i
                 }
 
-                else if(sheet.Name == "Hermanos") {
-                   
+                else if(sheet.Name == "Hermanos" || sheet.Name == "Direcciones congregaciones" || sheet.Name == "_DP Ext" || sheet.Name == "_Modèle" ) {
+
                 }
                 else { 
                     Range rngdiscours = sheet.get_Range("D13", "D36");
@@ -115,6 +115,7 @@ namespace DiscoursPublique
 
             foreach (Excel.Worksheet sheet in wb.Worksheets)
             {
+                
                 if (sheet.Name == "Bosquejos") {
                     
                     Range rngOrateur = sheet.get_Range("C5", "P5");
@@ -137,7 +138,8 @@ namespace DiscoursPublique
                     // MessageBox.Show( bosquejos.datesBosquejo.ElementAt(i) ); // date bosque n° i
                 }
 
-                else if(sheet.Name == "Hermanos") {
+                else if(sheet.Name == "Hermanos" || sheet.Name == "Direcciones congregaciones" || sheet.Name == "_DP Ext" || sheet.Name == "_Modèle")
+                {
                    
                 }
                 else { 
