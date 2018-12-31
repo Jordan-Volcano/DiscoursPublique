@@ -16,7 +16,7 @@ namespace DiscoursPublique
 
         }
 
-        private void button1_Click(object sender, RibbonControlEventArgs e)
+        private void button1_Click(object sender, RibbonControlEventArgs e) //Click bouton sauvegarde Dates discours
         {
             Thread.CurrentThread.CurrentCulture = new CultureInfo("fr-FR");
 
@@ -106,7 +106,7 @@ namespace DiscoursPublique
 
         }
 
-        private void button2_Click(object sender, RibbonControlEventArgs e)
+        private void button2_Click(object sender, RibbonControlEventArgs e) // Click bouton sauvegarde dates orateurs
         {
             Thread.CurrentThread.CurrentCulture = new CultureInfo("fr-FR");
 
@@ -122,6 +122,11 @@ namespace DiscoursPublique
 
                     System.Array valuesOrateur= (System.Array)rngOrateur.Cells.Value;
                     System.Array valuesDateBosquejos = (System.Array)rngDateOrateurs.Cells.Value;
+
+                    if(orateur.Name == Globals.ThisAddIn.ConvertToStringArray2(valuesOrateur))
+                    {
+                        MessageBox.Show("orateur name existe deja");
+                    }
 
                     orateur = new Orateur(
                                                     Globals.ThisAddIn.ConvertToStringArray2(valuesOrateur),
@@ -200,6 +205,48 @@ namespace DiscoursPublique
             }
 
             MessageBox.Show("Les dates pour les orateurs à été mis à jour");
+        }
+
+        private void button3_Click(object sender, RibbonControlEventArgs e)
+        {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("fr-FR");
+
+            var frere = new Frère();
+            Workbook wb = Globals.ThisAddIn.GetActiveWorkbook();
+
+            foreach (Excel.Worksheet sheet in wb.Worksheets)
+            {
+                if (sheet.Name == "Bosquejos")
+                {
+
+                    Range rngOrateur = sheet.get_Range("C5", "P5");
+                    Range rngDateOrateurs = sheet.get_Range("C4", "P4");
+
+                    System.Array valuesOrateur = (System.Array)rngOrateur.Cells.Value;
+                    System.Array valuesDateBosquejos = (System.Array)rngDateOrateurs.Cells.Value;
+
+                    foreach ( string nom in valuesOrateur)
+                    {
+                        if (nom != null)
+                        {
+                            frere = new Frère(
+                                               nom,
+                                               Globals.ThisAddIn.ConvertToStringArray2(valuesDateBosquejos)
+                                              );
+                        }
+
+                        MessageBox.Show(frere.Name.ToString() + " " + frere.bosquejos.ToString());
+                    }
+
+                    
+
+                }
+            }
+        }
+
+        private void button4_Click(object sender, RibbonControlEventArgs e)     // Click bouton Generer PDF Orateur Exterieur
+        {
+
         }
     }
 }

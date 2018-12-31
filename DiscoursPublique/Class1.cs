@@ -44,13 +44,41 @@ namespace DiscoursPublique
         }
 
 
-        public Orateur( string[] nom, string[] dates)
+        public Orateur(string[] nom, string[] dates)
         {
             Name = nom;
             datesBosquejo = dates;
 
         }
 
-
     }
-}
+
+
+    public class Frère
+        {
+            public string Name;
+            public string[,] bosquejos;
+
+
+            public Frère()
+            {
+
+
+            }
+
+
+            public Frère(string nom, string[] dates)
+            {
+                Name = nom;
+                foreach(string date in dates)
+            {
+
+                bosquejos = new string[,] { { date, } };
+            }
+            
+
+            }
+
+
+        }
+    }
