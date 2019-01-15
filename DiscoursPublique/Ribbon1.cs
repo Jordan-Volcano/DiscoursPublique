@@ -118,8 +118,8 @@ namespace DiscoursPublique
                 
                 if (sheet.Name == "Bosquejos") {
                     
-                    Range rngOrateur = sheet.get_Range("C5", "P5");
-                    Range rngDateOrateurs = sheet.get_Range("C4", "P4");
+                    Range rngOrateur = sheet.get_Range("C5", "Z5");
+                    Range rngDateOrateurs = sheet.get_Range("C4", "Z4");
 
                     System.Array valuesOrateur= (System.Array)rngOrateur.Cells.Value;
                     System.Array valuesDateBosquejos = (System.Array)rngDateOrateurs.Cells.Value;
@@ -221,8 +221,8 @@ namespace DiscoursPublique
                 if (sheet.Name == "Bosquejos")
                 {
 
-                    Range rngOrateur = sheet.get_Range("C5", "P5");
-                    Range rngDateOrateurs = sheet.get_Range("C4", "P4");
+                    Range rngOrateur = sheet.get_Range("C5", "Z5");
+                    Range rngDateOrateurs = sheet.get_Range("C4", "Z4");
 
                     System.Array valuesOrateur = (System.Array)rngOrateur.Cells.Value;
                     System.Array valuesDateBosquejos = (System.Array)rngDateOrateurs.Cells.Value;
