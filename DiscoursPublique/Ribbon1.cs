@@ -25,6 +25,8 @@ namespace DiscoursPublique
 
             foreach (Excel.Worksheet sheet in wb.Worksheets)
             {
+                //MessageBox.Show(sheet.Name); 
+
                 if (sheet.Name == "Bosquejos") {
                     
                     Range rngBosquejos = sheet.get_Range("A5", "A236");
@@ -42,7 +44,7 @@ namespace DiscoursPublique
                     // MessageBox.Show( bosquejos.datesBosquejo.ElementAt(i) ); // date bosque n° i
                 }
 
-                else if(sheet.Name == "Hermanos" || sheet.Name == "Direcciones congregaciones" || sheet.Name == "_DP Ext" || sheet.Name == "_Modèle" ) {
+                else if(sheet.Name == "Hermanos" || sheet.Name == "Direcciones congregaciones" || sheet.Name == "_DP Ext" || sheet.Name == "_Modèle" || sheet.Name == "Pres_Lect") {
 
                 }
                 else { 
@@ -115,16 +117,17 @@ namespace DiscoursPublique
 
             foreach (Excel.Worksheet sheet in wb.Worksheets)
             {
-                
-                if (sheet.Name == "Bosquejos") {
-                    
+
+                if (sheet.Name == "Bosquejos")
+                {
+
                     Range rngOrateur = sheet.get_Range("C5", "Z5");
                     Range rngDateOrateurs = sheet.get_Range("C4", "Z4");
 
-                    System.Array valuesOrateur= (System.Array)rngOrateur.Cells.Value;
+                    System.Array valuesOrateur = (System.Array)rngOrateur.Cells.Value;
                     System.Array valuesDateBosquejos = (System.Array)rngDateOrateurs.Cells.Value;
 
-                    if(orateur.Name == Globals.ThisAddIn.ConvertToStringArray2(valuesOrateur))
+                    if (orateur.Name == Globals.ThisAddIn.ConvertToStringArray2(valuesOrateur))
                     {
                         MessageBox.Show("orateur name existe deja");
                     }
@@ -134,15 +137,14 @@ namespace DiscoursPublique
                                                     Globals.ThisAddIn.ConvertToStringArray2(valuesDateBosquejos)
                                                   );
 
-                    // MessageBox.Show( bosquejos.numeros.ElementAt(i) ); // == bosquejo n° i
-                    // MessageBox.Show( bosquejos.datesBosquejo.ElementAt(i) ); // date bosque n° i
                 }
 
-                else if(sheet.Name == "Hermanos" || sheet.Name == "Direcciones congregaciones" || sheet.Name == "_DP Ext" || sheet.Name == "_Modèle")
+                else if (sheet.Name == "Hermanos" || sheet.Name == "Direcciones congregaciones" || sheet.Name == "_DP Ext" || sheet.Name == "_Modèle" || sheet.Name == "Pres_Lect")
                 {
-                   
+
                 }
-                else { 
+                else
+                {
                     Range rngorateurs = sheet.get_Range("B13", "B36");
                     Range rngdates = sheet.get_Range("A13", "A36");
 
@@ -160,43 +162,47 @@ namespace DiscoursPublique
                             dates[i] = "01/01/2015";
                         }
 
-                        for (int j = 1; j < orateur.Name.Length; j++) { 
+                        for (int j = 1; j < orateur.Name.Length; j++)
+                        {
 
-                            if (listeorateurs[i] == orateur.Name.ElementAt(j) && listeorateurs[i] != "" )
+                            if (listeorateurs[i] == orateur.Name.ElementAt(j) && listeorateurs[i] != "")
                             {
-                                                           
-                                DateTime dateDiscours = DateTime.Parse(dates[i], new CultureInfo("fr-FR")) ;
-                               
+                                
+                                DateTime dateDiscours = DateTime.Parse(dates[i], new CultureInfo("fr-FR"));
+
                                 if (orateur.datesBosquejo[j] == "")
                                 {
 
                                     orateur.datesBosquejo[j] = "01/01/2014";
 
-                                   
+
                                 }
 
                                 //TODO : Prendre en charge les valeur où il n'y a pas de date
-                                
+
                                 DateTime dateBosquejo = DateTime.Parse(orateur.datesBosquejo.ElementAt(j), new CultureInfo("fr-FR"));
 
-                               
-                                if ( dateDiscours > dateBosquejo)
+                               /* MessageBox.Show(" on se trouve dans la Feuille : " + sheet.Name +
+                                                " l'orateur dans la liste: " + listeorateurs[i] + " est aussi dans Bosquejos : " + orateur.Name.ElementAt(j) +
+                                                " la date de son discours est : " + dateDiscours + " et son derniere enregistrement est le :" + dateBosquejo);
+                               */
+                                if (dateDiscours > dateBosquejo)
                                 {
-                                    
-                                    string[] lettre = {"C","D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P"};
-                                   
+
+                                    string[] lettre = { "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T" };
+
 
                                     Worksheet sheet2 = wb.Sheets["Bosquejos"];
 
                                     Range newrange = sheet2.get_Range(lettre[j] + 4);
-                                    
+
                                     newrange.Cells.Value = dateDiscours.ToShortDateString();
 
                                 }
 
 
-                                
-                                
+
+
 
                             }
 
